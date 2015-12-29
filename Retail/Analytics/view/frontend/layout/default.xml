@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Retail\Analytics\Block\Embed" name="retail.analytics.embed" after="-" template="Retail_Analytics::embed.phtml" />
+      	 
+      		<block class="Retail\Analytics\Block\Customer" name="retail.analytics.customer" template="Retail_Analytics::customer.phtml"/>
+     	
+       	    <block class="Retail\Analytics\Block\Cart" name="retail.analytics.cart" template="Retail_Analytics::cart.phtml"/>
+				
+						
+       </referenceContainer>
+       
+      <!--  <reference name="after_body_start">
+			   <block class="Magento\Customer\Block\CustomerData" name="retail.analytics.customer" template="Retail_Analytics::customer.phtml"/>
+	   </reference> -->
+    </body>
+</page>

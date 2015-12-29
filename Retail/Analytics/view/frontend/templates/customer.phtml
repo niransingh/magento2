@@ -1,0 +1,28 @@
+<?php
+/**
+ */
+?>
+
+<?php
+
+$raaSessionHelper = $this->helper('Retail\Analytics\Helper\Session');
+$customerSession = $raaSessionHelper->getCustomerSession();
+$customer = $customerSession->getCustomer();
+
+?>
+
+
+<?php if ($customerSession->isLoggedIn()): ?>
+   <div class="raa_customer" style="display:none">	
+   
+	   	<span class="raa_entity_id" data-key="true"><?php echo $this->escapeHtml($customer->getId()); ?></span>
+	    <span class="raa_customer_id" data-key="true"><?php echo $this->escapeHtml($customer->getId()); ?></span>
+	    <span class="raa_firstname"><?php echo $this->escapeHtml($customer->getFirstname()); ?></span>
+	    <span class="raa_lastname"><?php echo $this->escapeHtml($customer->getLastname()); ?></span>
+	    <span class="raa_email" data-key="true"><?php echo $this->escapeHtml($customer->getEmail()); ?></span>    
+	    
+   </div>
+<?php endif; ?>
+
+
+

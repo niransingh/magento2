@@ -1,0 +1,37 @@
+<?php
+/**
+ * Magento
+ */
+?>
+
+<?php
+
+$imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+$product = $block->getProduct();
+
+$raaDataHelper = $this->helper('Retail\Analytics\Helper\Data');
+$width = $raaDataHelper->getImageWidth();
+$height = $raaDataHelper->getImageHeight();
+
+?>
+
+<!-- Raa Product Tagging -->
+<div class="raa_product" style="display:none">
+<span class="raa_entity_id" data-key="true"><?php echo $product->getId(); ?></span>
+<span class="raa_product_id" data-key="true"><?php echo $product->getId(); ?></span>
+<span class="raa_sku" data-key="true"><?php echo $product->getSku(); ?></span>
+<span class="raa_name"><?php echo $this->escapeHtml($product->getName()); ?></span> 
+<span class="raa_price"><?php echo  $block->stripTags($product->getFormatedPrice()); ?></span>
+<span class="raa_special_price"><?php echo $product->getPriceInfo()->getPrice('final_price')->getAmount()->getValue(); ?></span>
+<span class="raa_url"><?php echo $this->escapeHtml($product->getProductUrl()); ?></span>
+<span class="raa_imageurl"><?php  echo $this->escapeHtml($product->getMediaConfig()->getMediaUrl($product->getImage())); ?></span>  					
+<span class="raa_cacheimageurl" ><?php echo $this->escapeHtml($imagehelper->init($product, 'category_page_grid')->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize($height,$width)->getUrl()); ?></span>
+<span class="raa_quantity"><?php echo $product->getQty() ?></span>
+
+<?php if ($block->displayProductStockStatus()): ?>
+   <span class="raa_instock"><?php echo $product->isAvailable(); ?></span>	
+<?php else: ?>
+   <span class="raa_instock">0</span>	
+<?php endif; ?>
+
+</div>

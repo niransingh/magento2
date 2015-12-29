@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Representation of Webapi module in System Configuration (Magento admin panel).
+ *
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="retail_analytics" translate="label" type="text" sortOrder="1001" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Predictive Email</label>
+            <tab>service</tab>
+            <resource>Retail_Analytics::config_retail_analytics</resource>
+            <group id="settings" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Setting</label>
+                <field id="server" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Server</label>
+                    <comment>e.g.  retailautomata.com</comment>
+                    <backend_model>Retail\Analytics\Model\Config\Server</backend_model>
+                     <validate>required-entry</validate>
+                </field>
+                 <field id="account" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Account ID</label>
+                     <backend_model>Retail\Analytics\Model\Config\Account</backend_model>
+                    <validate>required-entry</validate>
+                </field>
+                 <field id="enabled" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enabled</label>
+                    <backend_model>Retail\Analytics\Model\Config\Enabled</backend_model>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                </field>
+                 <field id="validate_server" translate="button_label" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <button_label>Validate Server Account</button_label>
+                    <frontend_model>Retail\Analytics\Block\Adminhtml\System\Config\Button</frontend_model>
+                    <!-- <frontend_model>Magento\Customer\Block\Adminhtml\System\Config\Validatevat</frontend_model> -->
+                </field>               
+            </group>
+        </section>
+    </system>
+</config>
+

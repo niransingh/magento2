@@ -1,0 +1,54 @@
+<?php
+/** 
+ */
+?>
+
+<?php
+/**
+ */
+$raaHelper = $this->helper('Retail\Analytics\Helper\Data');
+
+?>
+
+<!-- Raa Tagging Script -->
+<script type="text/javascript"> 
+
+var raframetemp = document.getElementById('raframe');
+if(raframetemp == null)
+{	
+		
+	var raa_serverurl =  <?php echo '"'. $raaHelper->getServer().'"'; ?>; 	
+	raa_serverurl = (window.location.protocol == "https:")?'https://'+raa_serverurl+':8443':'http://'+ raa_serverurl + ':8080';	
+	console.log("raa_server : "+ raa_serverurl);
+
+	var raa_appid =  <?php echo '"'. $raaHelper->getAccount().'"'; ?>; 
+	console.log("raa_appid : "+ raa_appid);
+
+	var raa_enable =  <?php echo '"'. $raaHelper->getEnabled().'"'; ?>; 	
+	console.log("raa_enable : "+ raa_enable);
+
+	var raa_resourcedir =  <?php echo '"'. $raaHelper->getResourcedir().'"'; ?>; 	
+	console.log("raa_resourcedir : "+ raa_resourcedir);
+	
+	var raa_resourceurl = raa_serverurl + "/ralib/magento/raa.js";	
+	var raa_second_serverurl = (window.location.protocol == "https:")?"https://www.rrjewels.com:8443":"http://www.rrjewels.com:8080";			
+	var raa_third_serverurl = (window.location.protocol == "https:")?"https://www.retailrecoanalytics.com:8443":"http://www.retailrecoanalytics.com:8080";	
+
+	var raa_resourcedir =  "";   
+	
+	function initiateRaa()
+	 {				
+		 var raframe = document.getElementById('raframe');							 									
+		 var raanalytics = new raframe.contentWindow.raa();
+		 raanalytics.run();				
+	 } 	
+	
+	(function(){function a(a){var b,c,d=window.document.createElement("iframe");d.id="raframe";d.src="javascript:false",(d.frameElement||d).style.cssText="width: 0; height: 0; border: 0";var e=window.document.createElement("div");e.style.display="none";var f=window.document.createElement("div");e.appendChild(f),window.document.body.insertBefore(e,window.document.body.firstChild),f.appendChild(d);try{c=d.contentWindow.document}catch(g){b=document.domain,d.src="javascript:var d=document.open();d.domain='"+b+"';void(0);",c=d.contentWindow.document}return c.open()._l=function(){b&&(this.domain=b);var c=this.createElement("scr".concat("ipt"));c.onerror=function(){try{localStorage.removeItem("raaresourceurl");localStorage.removeItem("raaresourcecreated");var xhr = (window.XMLHttpRequest)?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");xhr.open('GET', raa_second_serverurl + "/RAService/isrunning", true);xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");xhr.onreadystatechange=function(){if(xhr.readyState == 4 ){if (xhr.status == 200){localStorage.setItem("raaresourceurl",raa_second_serverurl);localStorage.setItem("raaresourcecreated", new Date());}else{var xhr2 = (window.XMLHttpRequest)?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");xhr2.open('GET', raa_third_serverurl + "/RAService/isrunning", true);xhr2.setRequestHeader("Content-type","application/x-www-form-urlencoded");xhr2.onreadystatechange=function(){if (xhr2.readyState == 4){if (xhr2.status == 200){localStorage.setItem("raaresourceurl",raa_third_serverurl);localStorage.setItem("raaresourcecreated", new Date());}}};xhr2.send();}}};xhr.send();}catch(err){console.log("err from raa script onerror event : " + JSON.stringify(err.message ));}};c.onload=function(){try{var raa_client_resourcedir = (raa_resourcedir.trim() == "")?"default":raa_resourcedir;var raa_client_resourceurl = raa_serverurl + "/ralib/magento/" + raa_client_resourcedir + "/raaclient.js";var script = window.document.createElement('script');script.setAttribute('src', raa_client_resourceurl);script.onload=function(){initiateRaa();};window.document.body.appendChild(script);}catch(err){console.log("err from raa script onload event : " + JSON.stringify(err.message ));}};c.src=a,this.body.appendChild(c);},c.write("<bo".concat('dy onload="document._l();">')),c.close(),d}var b="raa";window[b]=window[b]||function(a){(window[b].q=window[b].q||[]).push(a)},window[b].l=new Date;var c=function(d,e){if(!document.body)return setTimeout(function(){c(d,e)},30);e=e||{},window[b].o=e;var f=document.location.protocol,g=raa_resourceurl;a(g)};window[b].init=c})();
+
+	if(raa_enable == true)
+	{		
+	  raa.init(raa_appid);	 	  
+	}
+		
+}
+</script>

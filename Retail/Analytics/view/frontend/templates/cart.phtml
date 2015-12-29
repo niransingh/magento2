@@ -1,0 +1,38 @@
+<?php
+
+?>
+
+<?php
+
+$raaSessionHelper = $this->helper('Retail\Analytics\Helper\Session');
+$checkoutSession = $raaSessionHelper->getCheckoutSession();
+$cart = $checkoutSession->getQuote();
+
+$imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+$raaDataHelper = $this->helper('Retail\Analytics\Helper\Data');
+$width = $raaDataHelper->getImageWidth();
+$height = $raaDataHelper->getImageHeight();
+
+?>
+
+
+<?php if ($cart->getItemsCount()>0): ?>
+<div class="raa_cart" style="display:none">
+
+ <?php foreach ($cart->getAllVisibleItems() as $item) : ?> 
+ 	 <div class="line_item">  
+ 		<span class="raa_entity_id" data-key="true"><?php echo $item->getProduct()->getId(); ?></span>
+ 		<span class="raa_product_id" data-key="true"><?php echo $item->getProduct()->getId(); ?></span>    
+ 		<span class="raa_sku" data-key="true"><?php echo $item->getProduct()->getSku(); ?></span>    
+ 		<span class="raa_name"><?php echo $this->escapeHtml($item->getProduct()->getName()); ?></span> 
+ 		<span class="raa_quantity"><?php echo $item->getQty(); ?></span> 
+ 		<span class="raa_url"><?php echo $this->escapeHtml($item->getProduct()->getProductUrl()); ?></span> 
+ 		<span class="raa_price"><?php echo $item->getPriceInclTax(); ?></span>    
+ 		<span class="raa_imageurl"><?php  echo $this->escapeHtml($item->getProduct()->getMediaConfig()->getMediaUrl($item->getProduct()->getImage())); ?></span>  
+ 		<span class="raa_cacheimageurl" ><?php echo $this->escapeHtml($imagehelper->init($item->getProduct(), 'category_page_grid')->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize($height,$width)->getUrl()); ?></span>
+	 </div>               
+ <?php endforeach; ?>
+
+
+</div>
+<?php endif; ?>

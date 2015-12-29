@@ -1,0 +1,52 @@
+<?php
+
+?>
+
+<?php
+
+$raaSessionHelper = $this->helper('Retail\Analytics\Helper\Session');
+$checkoutSession = $raaSessionHelper->getCheckoutSession();
+$order = $checkoutSession->getLastRealOrder();
+
+?>
+
+<?php if (!empty($order)): ?>
+
+<div class="raa_purchase_order" style="display:none">
+ 	<div class="order_info">   
+ 	 	<span class="raa_product_id">-2</span>
+      	<span class="raa_entity_id"><?php echo $order->getEntityId(); ?></span>
+     	<span class="raa_order_id"><?php echo $order->getEntityId(); ?></span>
+     	<span class="raa_increment_id"><?php echo $order->getIncrementId(); ?></span>  
+     	<span class="raa_sub_total"><?php echo $this->escapeHtml($order->getSubtotal()); ?></span>
+     	<span class="raa_grand_total"><?php echo $this->escapeHtml($order->getGrandTotal()); ?></span>  
+     	<span class="raa_status"><?php echo $order->getStatus(); ?></span>     	
+     	<span class="raa_coupon_code"><?php echo $order['coupon_code']; ?></span>
+     	<span class="raa_base_subtotal"><?php echo $this->escapeHtml($order['base_subtotal']); ?></span>
+     	<span class="raa_base_grand_total"><?php echo $this->escapeHtml($order['base_grand_total']); ?></span>
+     	<span class="raa_created_at"><?php echo $order['created_at']; ?></span>
+    </div>
+     <div class="customer">
+    	<span class="raa_customer_id"><?php echo $order->getCustomerId(); ?></span>
+         <span class="raa_firstname"><?php echo $order->getCustomerFirstname(); ?></span>
+        <span class="raa_lastname"><?php echo $order->getCustomerLastname(); ?></span>
+        <span class="raa_email"><?php echo $this->escapeHtml($order->getCustomerEmail()); ?></span>
+        <span class="raa_phone"></span>
+    </div> 
+     <div class="products">
+        <?php foreach ($order->getAllItems() as $item): ?>         
+        <div class="line_item">        
+            <span class="raa_product_id"><?php echo $item->getProductId(); ?></span>     
+            <span class="raa_sku"><?php echo $item->getSku(); ?></span>     
+            <span class="raa_name"><?php echo $item->getName(); ?></span> 
+             <span class="raa_quantity"><?php echo (int)$this->escapeHtml($item->getQtyOrdered()); ?></span>
+             <span class="raa_price"><?php echo $this->escapeHtml($item->getPriceInclTax()); ?></span>
+            <span class="raa_discount"><?php echo $this->escapeHtml($item->getDiscountAmount()); ?></span>  
+            <span class="raa_producttypeid"><?php echo $item->getProductType(); ?></span>                                
+        </div>
+        <?php endforeach; ?>
+    </div>
+     
+ </div> 
+ 
+ <?php endif; ?>
